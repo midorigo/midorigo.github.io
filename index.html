@@ -14,35 +14,55 @@
 
 <img src = "assets/2025_04_19/voicemeeter.png">
 
+<p><i>Pictured: Using Voicemeeter to route audio. Audio output from my browser (in this instance, the software from which I am recording flashcard audio) is routed into a separate virtual input, which is then set to output to two different virtual outputs. A1 goes to my headphones and includes all other system audio, while B2 consists exclusively of audio from the VAOI3 virtual input.</i></p>
+
 <img src = "assets/2025_04_19/sharexaudio.png">
+
+<p><i>Pictured: In the screen recording settings for my audio recording hotkey, I then set ShareX to only record from B2 Output.</i></p>
 
 <p>The next in my series of improvements was dividing my Japanese flashcards into sub-decks by note type and Kanken level, in that order. This was non-trivial as it required creating new note types and Yomitan profiles. That bare amount of non-triviality was what held me up pacing mentally about how I should go about doing this until the impetus to finally just do it and see what works came over me. The system I arrived at was dividing cards into three types: sentence, vocab, and writing, and then further separating each of those into Kanken levels 2 and below, pre-1 and 1. Sentence cards display the sentence on the front with the key word underlined, testing reading and meaning. Vocab cards also test meaning and reading, but exist out of context with no sentence on the front or back. They are less ideal that sentence cards but are necessary due to the nature of the textbook which I am using as my primary resource-- they do allow for quick mass acquisition of vocab, even if they are of lower quality. I am still using JP Mining Note for both sentence and vocab cards so in practice the only difference right now is whether or not there's context (sentence/audio/picture) on the back.</p>
 
 <img src = "assets/2025_04_19/ankidecks.png">
 
+<p><i>Pictured: The current state of my Japanese Anki collection. It's not important to me to differentiate between levels below 2; at this point they are all roughly of equivalent difficulty and form a single group of 常用 "jouyou" vocabulary in contrast to 常用外 "jouyougai" vocab from levels pre-1 and 1 in my mind. Work remains to be done in separating my existing mining cards which may belong to higher categories, which is why I haven't renamed "Mining" to "Level 2" as with the other sub-decks.</i></p>
+
 <p>Lastly are writing cards require a sentence on the front and back with the underlined word written in kana on the front, and in kanji in the back. Naturally they test writing and meaning and are more time and memory-intensive than either variety of reading card. I used an existing simple template from <a href = "https://ankiweb.net/shared/info/759825185">this well-known deck</a> as a base and modified it somewhat to suit my preference. The experience of setting up the corresponding Yomitan profile was valuable in illuminating more of Yomitan's functions, which until this point I have been using according to a preexisting guide. Now that I have had more hands-on experience which each part of the process I am more confident and keen on the idea of creating my own mining card template to use instead of JP Mining Note, which while attractive and high-tech really feels over-designed and laggy, especially in combination with Anki's already sluggish and bloated nature.</p>
 
 <img src = "assets/2025_04_19/kanjiwriting.png">
+
+<p><i>Pictured: The back side of the card template I used as a base. This was the first Anki deck I used to independently study kanji.</i></p>
 
 <img src = "assets/2025_04_19/writingcardfront.png">
 
 <img src = "assets/2025_04_19/writingcardback.png">
 
+<p><i>Pictured: The front and back of what my writing cards look like at present.</i></p>
+
 <p>It's also worth mentioning that I switched from Mokuro to manga-ocr for mining from my textbooks. <a href = "https://github.com/kha-white/mokuro">Mokuro</a> is a script which makes use of manga-ocr to pre-render html pages overlaying text readable by Yomitan over printed material, differently to the base technology of <a href = "https://github.com/kha-white/manga-ocr">manga-ocr</a> which runs from the command line in combination with ShareX to scan screenshots and automatically copy text to the clipboard. Mokuro is an excellent concept, but ocr technology isn't developed enough to make it superior in efficiency and accuracy to manga-ocr.</p>
 
 <img src = "assets/2025_04_19/mokuro.png">
 
+<p><i>Pictured: Mokuro in action. While it's slick, you can see that it makes a typo and mistakenly sees 糾す as 糾ず.</i></p>
+
 <img src = "assets/2025_04_19/mangaocr.png">
+
+<p><i>Pictured: A contrived screenshot demonstrating the moving parts of manga-ocr. I can't easily get a screen grab while I am selecting the region to perform OCR on, so just imagine there's a dotted box with a cursor around the sentence. manga-ocr runs in the terminal and is set to analyze files in a directory of my choosing, and a ShareX hotkey saves screenshots to that directory. manga-ocr then copies the result to my clipboard, while Yomitan monitors for anything that enters the clipboard and pastes it in its search window automatically. In practice I would just have the reading material and the Yomitan window up on separate screens with the terminal running manga-ocr minimized.</i></p>
 
 <p>My last adventure has been in reverse-engineering the Kanji Kentei DS3 video game to obtain practice questions in plain text directly from the game files. Previously the idea only existed in my head as a vague possibility; it should obviously be possible in theory, but I had no clue about what the process would involve. In retrospect I could not tell you what was going through my head when I first began the process. It started Thursday when I installed a DS emulator and loaded my ROM of the official Kanji Kentei DS game, which was a straightforward matter of searching the internet for the right things. Not knowing where to go from there, I Googled (DuckDuckGo'd) something like "reverse engineer 3DS game". Reverse engineering has always been conceptually interesting to me, but regrettably I am the type of person who is habitually averse to actually just getting hands on with things so this was my first foray into the field. Fortunately one of the first results happened to be <a href = "https://www.starcubelabs.com/reverse-engineering-ds/">this excellent guide</a> which I feel obligated to share out of appreciation. The informational content is good and it is written very excellently in such a way that makes me feel love from the author.</p>
 
 <img src = "assets/2025_04_19/ghidra.png">
 
+<p><i>Pictured: Ghidra, the SRE (software reverse engineering) tool in action. Picture taken from the aforementioned guide. The columns of data in the main panel are in order, addresses in RAM, the data stored in those RAM addresses, and then the assembly language representation of that data in the case that it is machine code. The right panel automatically decompiles functions from assembly to C to make them more human-readable. Since compiling a program is a one-way operation, this isn't anything like having access to the original source code, but it's still helpful in some cases to more easily understand at a glance how a function works.</i></p>
+
 <p>At any rate getting my hands on software reverse engineering tools made me giddy, but most of my time was spent simply sifting through RAM and other game binaries with a hex analyzer deciphering bits and figuring out how the text encoding worked-- in retrospect it's all very simple, but the time to reach that conclusion is always going to be exponentially greater than the time it takes to re-trace your steps once you already know the correct path. Ultimately, I achieved my original goal of accessing the questions in plain text straight from the source, I failed to consider that this wouldn't necessitate that plain-text information being organized in a useful way.</p>
 
 <img src = "assets/2025_04_19/ramsearch.png">
 
+<p><i>Pictured: Searching RAM for the 4 byte value E88ECA8B, which corresponds to 玉手 in Shift-JIS encoding. Actually, if you check for yourself on <a href = "https://r12a.github.io/app-encodings/">an online converter</a>, you will find that it is actually encoded as 8BCA8EE8. This is because the Nintendo DS as well as many other systems use a CPU architecture which stores bytes in memory in increasing order of significance, contrary to what we are used to in decimal notation where digits are written in decreasing order of significance; e.g. the first 1 in the number "10214" when read left-to right represents a quantity of ten thousand, whereas the second 1 represents a quantity of ten. This is referred to as "<a href = "https://en.wikipedia.org/wiki/Endianness">endianness</a>", and in practice it means that we simply reverse the order of bytes of the string we want to search for. A byte is two hexadecimal characters, so break the value into chunks of two digits and reverse the order to convert either way.</i></p>
+
 <img src = "assets/2025_04_19/plaintext.png">
+
+<p><i>Pictured: The game's questions stored in plain text, helpfully decoded automatically by Notepad++. Confusingly, I can't seem to locate the corresponding byte strings in memory when looking at it with a hex analyzer, which makes me think there is some more trickery I don't understand going on with the encoding which Notepad++ magically interprets.</i></p>
 
 <p>My next step is to do some deeper analyzing about how the data is structured until I reach a point where I can write some python to turn that into a flashcard deck of the entirety of all the quiz questions in the game. Once I have that, it's simply a matter of adding those cards to my personal deck as I please. Doing this saves on a tremendous amount of busy work that would otherwise be necessary going through the game as normal and manually converting each question I get wrong into a flashcard. This is another reason why Japanese is so enjoyable-- naturally following my desire to learn more efficiently rewards my creativity and leads me on tangential learning adventures like this. Getting over this negative habit of self-sabotage is a positive trend that I would like to see more of.</p>
 
